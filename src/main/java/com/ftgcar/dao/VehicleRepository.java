@@ -11,4 +11,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     Page<Vehicle> findByCategory(@Param("category") String category, Pageable pageable);
+
 }

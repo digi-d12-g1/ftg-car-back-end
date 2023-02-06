@@ -1,7 +1,7 @@
 package com.ftgcar.services;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
-
 import com.ftgcar.dao.VehicleRepository;
 import com.ftgcar.dto.VehicleDto;
 import com.ftgcar.mapper.VehicleMapper;
@@ -20,6 +20,11 @@ public class VehicleService {
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
         vehicleRepository.save(vehicleMapper.vehicleDtoToVehicle(vehicleDto));
         return vehicleDto;
+    }
+
+    public List<VehicleDto> findAllVehicles() {
+
+        return vehicleRepository.findAll().stream().map(vehicleMapper::vehicleToVehicleDto).toList();
     }
 
 }
