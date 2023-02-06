@@ -21,3 +21,4 @@ spring:
       allowedOrigins: http://localhost:4200
 server:
   port: 4444
+  
