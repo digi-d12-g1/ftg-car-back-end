@@ -42,8 +42,8 @@ public class VehicleService {
         return vehicleMapper.vehicleToVehicleDto(existingVehicle.get());
     }
 
-    public void deleteVehicleById(long id) {
-        vehicleRepository.deleteById(id);
+    public void deleteVehicleByNumberplate(String numberplate) {
+        vehicleRepository.deleteByNumberplate(numberplate);
     }
 
 }
