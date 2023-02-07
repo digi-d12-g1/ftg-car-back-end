@@ -28,4 +28,14 @@ public class BookingVehicleController {
     public BookingVehicleDto addBooking(@RequestBody BookingVehicleDto bookingVehicleDto) {
         return this.bookingVehicleService.addBooking(bookingVehicleDto);
     }
+
+    @PutMapping("/{id}")
+    public void updateBooking(@PathVariable Long id, @RequestBody BookingVehicleDto bookingVehicleDto) {
+        this.bookingVehicleService.updateBooking(id, bookingVehicleDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBooking(@PathVariable Long id) {
+        this.bookingVehicleService.deleteBooking(id);
+    }
 }

@@ -32,7 +32,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         exposeIds(config);
 
         cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins)
-                .allowedMethods("GET", "POST");
+                .allowedMethods("GET", "POST", "PUT");
     }
 
     private void exposeIds(RepositoryRestConfiguration config) {

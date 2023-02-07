@@ -2,7 +2,9 @@ package com.ftgcar.services;
 
 import com.ftgcar.dao.BookingVehicleRepository;
 import com.ftgcar.dto.BookingVehicleDto;
+import com.ftgcar.exceptions.ResourceNotFound;
 import com.ftgcar.mapper.BookingVehicleMapper;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,6 +26,22 @@ public class BookingVehicleServiceImpl implements BookingVehicleService {
     public BookingVehicleDto addBooking(BookingVehicleDto bookingVehicleDto) {
         this.bookingVehicleRepository.save(bookingVehicleMapper.toEntity(bookingVehicleDto));
         return bookingVehicleDto;
+    }
+
+    @Override
+    public void updateBooking(Long id, BookingVehicleDto bookingVehicleDto) {
+        this.bookingVehicleRepository.findById(id).map(booking -> {
+            return bookingVehicleRepository.save(bookingVehicleMapper.toEntity(bookingVehicleDto));
+        }).orElseThrow(() -> new NullPointerException(String.format("Error while updating booking for id %d", id)));
+    }
+
+    @Override
+    public void deleteBooking(Long id) {
+        try {
+            this.bookingVehicleRepository.deleteById(id);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFound(String.format("Product with id %s not found", id));
+        }
     }
 
     @Override
