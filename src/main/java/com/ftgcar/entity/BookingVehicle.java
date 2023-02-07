@@ -7,6 +7,7 @@ import java.time.Instant;
 @Table(name = "booking_vehicle")
 public class BookingVehicle {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -16,11 +17,11 @@ public class BookingVehicle {
     @Column(name = "arrival")
     private Instant arrival;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_vehicle", nullable = false)
     private Vehicle idVehicle;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_employee", nullable = false)
     private Employee idEmployee;
 
