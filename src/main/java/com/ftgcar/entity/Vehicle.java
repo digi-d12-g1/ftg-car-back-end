@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.ftgcar.enums.Category;
-import com.ftgcar.enums.Status;
-
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -35,10 +32,10 @@ public class Vehicle {
     private String model;
 
     @Column(name = "status", nullable = false, length = 20)
-    private Status status;
+    private String status;
 
     @Column(name = "category", nullable = false, length = 25)
-    private Category category;
+    private String category;
 
     @Column(name = "seat_capacity", nullable = false)
     private Short seatCapacity;
@@ -52,7 +49,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String picture, String brand, String model, Status status, Category category, Short seatCapacity) {
+    public Vehicle(String picture, String brand, String model, String status, String category, Short seatCapacity) {
         this.picture = picture;
         this.brand = brand;
         this.model = model;
@@ -101,19 +98,19 @@ public class Vehicle {
         this.model = model;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
