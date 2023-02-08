@@ -3,8 +3,6 @@ package com.ftgcar.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 import com.ftgcar.dao.VehicleRepository;
 import com.ftgcar.dto.VehicleDto;
@@ -13,7 +11,6 @@ import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.mapper.VehicleMapper;
 
 @Service
-@Transactional
 public class VehicleService {
 
     private final VehicleMapper vehicleMapper;
