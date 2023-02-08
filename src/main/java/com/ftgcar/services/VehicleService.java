@@ -15,10 +15,14 @@ public class VehicleService {
 
     private final VehicleMapper vehicleMapper;
     private final VehicleRepository vehicleRepository;
+    private final AdvertCarpoolingService advertCarpoolingService;
+    private final BookingAdvertCarpoolingService bookingAdvertCarpoolingService;
 
-    public VehicleService(VehicleMapper vehicleMapper, VehicleRepository vehicleRepository) {
+    public VehicleService(AdvertCarpoolingService advertCarpoolingService, VehicleMapper vehicleMapper, VehicleRepository vehicleRepository, BookingAdvertCarpoolingService bookingAdvertCarpoolingService) {
+        this.advertCarpoolingService = advertCarpoolingService;
         this.vehicleMapper = vehicleMapper;
         this.vehicleRepository = vehicleRepository;
+        this.bookingAdvertCarpoolingService = bookingAdvertCarpoolingService;
     }
 
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
@@ -40,6 +44,10 @@ public class VehicleService {
     }
 
     public void deleteVehicleByNumberplate(String numberplate) {
+        Optional<Vehicle> existingVehicle = vehicleRepository.findByNumberplate(numberplate);
+        if (existingVehicle.isPresent()) {
+            advertCarpoolingService.deleteAdvertCarpoolingByIdVehicle(existingVehicle.get().getId());
+        }
         vehicleRepository.deleteByNumberplate(numberplate);
     }
 

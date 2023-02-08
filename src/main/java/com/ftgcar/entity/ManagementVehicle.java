@@ -11,12 +11,12 @@ public class ManagementVehicle {
     @MapsId("idVehicle")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_vehicle", nullable = false)
-    private Vehicle idVehicle;
+    private Long idVehicle;
 
     @MapsId("idAdmin")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_admin", nullable = false)
-    private Admin idAdmin;
+    private Long idAdmin;
 
     public ManagementVehicleId getId() {
         return id;
@@ -26,19 +26,19 @@ public class ManagementVehicle {
         this.id = id;
     }
 
-    public Vehicle getIdVehicle() {
+    public Long getIdVehicle() {
         return idVehicle;
     }
 
-    public void setIdVehicle(Vehicle idVehicle) {
+    public void setIdVehicle(Long idVehicle) {
         this.idVehicle = idVehicle;
     }
 
-    public Admin getIdAdmin() {
+    public Long getIdAdmin() {
         return idAdmin;
     }
 
-    public void setIdAdmin(Admin idAdmin) {
+    public void setIdAdmin(Long idAdmin) {
         this.idAdmin = idAdmin;
     }
 
