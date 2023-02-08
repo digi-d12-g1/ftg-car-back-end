@@ -12,6 +12,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
+        #TODO : voir pour un  ddl_auto: 
 
 # API
   data:

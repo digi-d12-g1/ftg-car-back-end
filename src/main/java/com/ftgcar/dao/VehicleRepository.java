@@ -10,6 +10,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
+    void deleteByNumberplate(String numberplate);
+
     Page<Vehicle> findByCategory(@Param("category") String category, Pageable pageable);
 
 }
