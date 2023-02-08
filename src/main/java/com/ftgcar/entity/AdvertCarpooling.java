@@ -2,12 +2,14 @@ package com.ftgcar.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "advert_carpooling")
 public class AdvertCarpooling {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column(name = "departure", nullable = false)
@@ -24,11 +26,14 @@ public class AdvertCarpooling {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_vehicle", nullable = false)
-    private Vehicle idVehicle;
+    private Vehicle vehicle;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_employee", nullable = false)
-    private Employee idEmployee;
+    private Employee employee;
+
+    @OneToMany(mappedBy = "advertCarpooling", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<BookingAdvertCarpooling> bookingAdvertCarpoolings = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -70,20 +75,30 @@ public class AdvertCarpooling {
         this.seatAvailable = seatAvailable;
     }
 
-    public Vehicle getIdVehicle() {
-        return idVehicle;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setIdVehicle(Vehicle idVehicle) {
-        this.idVehicle = idVehicle;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public Employee getIdEmployee() {
-        return idEmployee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
+    public void setEmployee(Employee idEmployee) {
+        this.employee = idEmployee;
+    }
+
+    public void addBookingAdvertCarpooling(BookingAdvertCarpooling bookingAdvertCarpooling) {
+        bookingAdvertCarpoolings.add(bookingAdvertCarpooling);
+        bookingAdvertCarpooling.setAdvertCarpooling(this);
+    }
+
+    public void removeBookingAdvertCarpooling(BookingAdvertCarpooling bookingAdvertCarpooling) {
+        bookingAdvertCarpoolings.remove(bookingAdvertCarpooling);
+        bookingAdvertCarpooling.setAdvertCarpooling(null);
     }
 
 }

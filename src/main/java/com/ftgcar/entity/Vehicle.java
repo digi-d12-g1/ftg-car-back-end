@@ -1,17 +1,24 @@
 package com.ftgcar.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.ftgcar.enums.Category;
+import com.ftgcar.enums.Status;
 
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,13 +35,31 @@ public class Vehicle {
     private String model;
 
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private Status status;
 
     @Column(name = "category", nullable = false, length = 25)
-    private String category;
+    private Category category;
 
     @Column(name = "seat_capacity", nullable = false)
     private Short seatCapacity;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<BookingVehicle> bookingVehicles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<AdvertCarpooling> advertCarpoolings = new ArrayList<>();
+
+    public Vehicle() {
+    }
+
+    public Vehicle(String picture, String brand, String model, Status status, Category category, Short seatCapacity) {
+        this.picture = picture;
+        this.brand = brand;
+        this.model = model;
+        this.status = status;
+        this.category = category;
+        this.seatCapacity = seatCapacity;
+    }
 
     public Long getId() {
         return id;
@@ -76,19 +101,19 @@ public class Vehicle {
         this.model = model;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -98,6 +123,26 @@ public class Vehicle {
 
     public void setSeatCapacity(Short seatCapacity) {
         this.seatCapacity = seatCapacity;
+    }
+
+    public void addBookingVehicle(BookingVehicle bookingVehicle) {
+        bookingVehicles.add(bookingVehicle);
+        bookingVehicle.setVehicle(this);
+    }
+
+    public void removeBookingVehicle(BookingVehicle bookingVehicle) {
+        bookingVehicles.remove(bookingVehicle);
+        bookingVehicle.setVehicle(null);
+    }
+
+    public void addAdvertCarpooling(AdvertCarpooling advertCarpooling) {
+        advertCarpoolings.add(advertCarpooling);
+        advertCarpooling.setVehicle(this);
+    }
+
+    public void removeAdvertCarpooling(AdvertCarpooling advertCarpooling) {
+        advertCarpoolings.remove(advertCarpooling);
+        advertCarpooling.setVehicle(null);
     }
 
 }

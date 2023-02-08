@@ -1,29 +1,39 @@
 package com.ftgcar.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking_vehicle")
 public class BookingVehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "departure", nullable = false)
-    private Instant departure;
+    private LocalDateTime departure;
 
     @Column(name = "arrival")
-    private Instant arrival;
+    private LocalDateTime arrival;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicle", nullable = false)
-    private Vehicle idVehicle;
+    private Vehicle vehicle;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_employee", nullable = false)
-    private Employee idEmployee;
+    private Employee employee;
+
+
+    public BookingVehicle() {
+    }
+
+    public BookingVehicle(LocalDateTime departure, LocalDateTime arrival, Vehicle vehicle, Employee employee) {
+        this.departure = departure;
+        this.arrival = arrival;
+        this.vehicle = vehicle;
+        this.employee = employee;
+    }
 
     public Long getId() {
         return id;
@@ -33,36 +43,36 @@ public class BookingVehicle {
         this.id = id;
     }
 
-    public Instant getDeparture() {
+    public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Instant departure) {
+    public void setDeparture(LocalDateTime departure) {
         this.departure = departure;
     }
 
-    public Instant getArrival() {
+    public LocalDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(Instant arrival) {
+    public void setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
     }
 
-    public Vehicle getIdVehicle() {
-        return idVehicle;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setIdVehicle(Vehicle idVehicle) {
-        this.idVehicle = idVehicle;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public Employee getIdEmployee() {
-        return idEmployee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 }

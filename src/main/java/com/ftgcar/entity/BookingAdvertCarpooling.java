@@ -6,16 +6,16 @@ import javax.persistence.*;
 @Table(name = "booking_advert_carpooling")
 public class BookingAdvertCarpooling {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_advert_carpooling", nullable = false)
-    private AdvertCarpooling idAdvertCarpooling;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_advert_carpooling")
+    private AdvertCarpooling advertCarpooling;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_employee", nullable = false)
-    private Employee idEmployee;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_employee")
+    private Employee employee;
 
     public Long getId() {
         return id;
@@ -25,20 +25,20 @@ public class BookingAdvertCarpooling {
         this.id = id;
     }
 
-    public AdvertCarpooling getIdAdvertCarpooling() {
-        return idAdvertCarpooling;
+    public AdvertCarpooling getAdvertCarpooling() {
+        return advertCarpooling;
     }
 
-    public void setIdAdvertCarpooling(AdvertCarpooling idAdvertCarpooling) {
-        this.idAdvertCarpooling = idAdvertCarpooling;
+    public void setAdvertCarpooling(AdvertCarpooling advertCarpooling) {
+        this.advertCarpooling = advertCarpooling;
     }
 
-    public Employee getIdEmployee() {
-        return idEmployee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setIdEmployee(Employee idEmployee) {
-        this.idEmployee = idEmployee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 }
