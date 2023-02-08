@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "advert_carpooling")
 public class AdvertCarpooling {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "departure", nullable = false)

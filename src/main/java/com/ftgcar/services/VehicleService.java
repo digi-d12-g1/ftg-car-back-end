@@ -37,7 +37,7 @@ public class VehicleService {
     public VehicleDto findVehicleById(long id) throws NotFoundException {
         Optional<Vehicle> existingVehicle = vehicleRepository.findById(id);
         if (existingVehicle.isEmpty()) {
-            throw new NotFoundException("Sauf erreur de ma part, le véhicule demandé n'existe pas.");
+            throw new NotFoundException("Le véhicule demandé n'existe pas.");
         }
         return vehicleMapper.vehicleToVehicleDto(existingVehicle.get());
     }

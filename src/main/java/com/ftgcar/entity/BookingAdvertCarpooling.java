@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "booking_advert_carpooling")
 public class BookingAdvertCarpooling {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

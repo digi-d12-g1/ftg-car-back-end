@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", nullable = false, length = 25)
@@ -73,5 +73,5 @@ public class Employee {
     public void removeBookingVehicle(BookingVehicle bookingVehicle) {
         bookingVehicles.remove(bookingVehicle);
         bookingVehicle.setEmployee(null);
-    } 
+    }
 }

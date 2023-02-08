@@ -24,7 +24,6 @@ public class BookingVehicle {
     @JoinColumn(name = "id_employee", nullable = false)
     private Employee employee;
 
-
     public BookingVehicle() {
     }
 
