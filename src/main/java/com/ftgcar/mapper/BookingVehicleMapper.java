@@ -10,6 +10,4 @@ public interface BookingVehicleMapper {
 
     BookingVehicleDto toDto(BookingVehicle bookingVehicle);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    BookingVehicle partialUpdate(BookingVehicleDto bookingVehicleDto, @MappingTarget BookingVehicle bookingVehicle);
 }

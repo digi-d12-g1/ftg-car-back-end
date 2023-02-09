@@ -3,6 +3,8 @@ package com.ftgcar.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import com.ftgcar.dao.VehicleRepository;
 import com.ftgcar.dto.VehicleDto;
@@ -11,6 +13,7 @@ import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.mapper.VehicleMapper;
 
 @Service
+@Transactional
 public class VehicleService {
 
     private final VehicleMapper vehicleMapper;
@@ -27,8 +30,10 @@ public class VehicleService {
     }
 
     public List<VehicleDto> findAllVehicles() {
-
-        return vehicleRepository.findAll().stream().map(vehicleMapper::vehicleToVehicleDto).toList();
+        return vehicleRepository
+        .findAll()
+        .stream()
+        .map(vehicleMapper::vehicleToVehicleDto).toList();
     }
 
     public VehicleDto findVehicleById(long id) throws NotFoundException {
@@ -41,6 +46,14 @@ public class VehicleService {
 
     public void deleteVehicleByNumberplate(String numberplate) {
         vehicleRepository.deleteByNumberplate(numberplate);
+    }
+
+    public VehicleDto updateVehicleById(Long id, VehicleDto vehicleDto) {
+        Optional<Vehicle> vehicleToUpdate = vehicleRepository.findById(id);
+        if (vehicleToUpdate.isPresent()) {
+            return vehicleMapper.vehicleToVehicleDto(vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get()));
+        }
+        return addVehicle(vehicleDto);
     }
 
 }

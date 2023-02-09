@@ -41,4 +41,9 @@ public class VehicleController {
         vehicleService.deleteVehicleByNumberplate(numberplate);
     }
 
+    @PutMapping("/update/{id}")
+    public VehicleDto updateVehicle(@PathVariable Long id, @RequestBody VehicleDto vehicleDto) {
+        return vehicleService.updateVehicleById(id, vehicleDto);
+    }
+
 }
