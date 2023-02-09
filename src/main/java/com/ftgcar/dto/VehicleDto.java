@@ -1,11 +1,12 @@
 package com.ftgcar.dto;
 
 public record VehicleDto(
+                Long id,
                 String picture,
                 String numberplate,
                 String brand,
                 String model,
-                String status,
+                String vehicleStatus,
                 String category,
                 Short seatCapacity) {
 }

@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS vehicle
    numberplate VARCHAR(10) UNIQUE NOT NULL,
    brand VARCHAR(50) NOT NULL,
    model VARCHAR(50) NOT NULL,
-   status VARCHAR(20) NOT NULL,
+   vehicle_status VARCHAR(20) NOT NULL,
    category VARCHAR(25) NOT NULL,
    seat_capacity SMALLINT NOT NULL
 );

@@ -27,8 +27,8 @@ public class Vehicle {
     @Column(name = "model", nullable = false, length = 50)
     private String model;
 
-    @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    @Column(name = "vehicle_status", nullable = false, length = 20)
+    private String vehicleStatus;
 
     @Column(name = "category", nullable = false, length = 25)
     private String category;
@@ -76,12 +76,12 @@ public class Vehicle {
         this.model = model;
     }
 
-    public String getStatus() {
-        return status;
+    public String getVehicleStatus() {
+        return vehicleStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
     }
 
     public String getCategory() {
