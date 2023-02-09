@@ -8,7 +8,7 @@ VALUES
     ('admin', 'password');
 
 -- vehicle table
-INSERT INTO vehicle (picture, numberplate, brand, model, status, category, seat_capacity)
+INSERT INTO vehicle (picture, numberplate, brand, model, vehicle_status, category, seat_capacity)
 VALUES
     ('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg/1920px-2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg',
      '111xxx999', 'Toyota', 'Camry Ascent', 'available', 'Sedan', 4),
