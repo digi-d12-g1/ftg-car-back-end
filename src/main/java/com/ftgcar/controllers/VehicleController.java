@@ -21,8 +21,9 @@ public class VehicleController {
     }
 
     @PostMapping("/add")
-    public VehicleDto addVehicle(@RequestBody VehicleDto vehicleDto) {
-        return vehicleService.addVehicle(vehicleDto);
+    public List<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto) {
+        vehicleService.addVehicle(vehicleDto);
+        return findAllVehicles();
     }
 
     @GetMapping("/findAll")
