@@ -1,8 +1,5 @@
 package com.ftgcar.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,4 +28,5 @@ public class Admin {
     public void setIdEmployee(Employee idEmployee) {
         this.idEmployee = idEmployee;
     }
+
 }

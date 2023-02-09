@@ -24,7 +24,7 @@ public class BookingVehicleController {
         return bookingVehicleService.findAllBookings();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public BookingVehicleDto addBooking(@RequestBody BookingVehicleDto bookingVehicleDto) {
         return this.bookingVehicleService.addBooking(bookingVehicleDto);
     }
