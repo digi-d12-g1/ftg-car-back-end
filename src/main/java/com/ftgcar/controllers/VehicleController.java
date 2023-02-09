@@ -36,9 +36,9 @@ public class VehicleController {
         return vehicleService.findVehicleById(id);
     }
 
-    @DeleteMapping("/delete/{numberplate}")
-    public void deleteVehicleByNumberplate(@PathVariable String numberplate) {
-        vehicleService.deleteVehicleByNumberplate(numberplate);
+    @DeleteMapping("/delete/{id}")
+    public void deleteVehicleById(@PathVariable long id) {
+        vehicleService.deleteVehicleById(id);
     }
 
     @PutMapping("/update/{id}")

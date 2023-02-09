@@ -15,8 +15,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     Optional<Vehicle> findByNumberplate(String numberplate);
 
-    void deleteByNumberplate(String numberplate);
-
     Page<Vehicle> findByCategory(@Param("category") String category, Pageable pageable);
 
 }

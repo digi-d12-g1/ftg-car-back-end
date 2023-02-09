@@ -31,9 +31,9 @@ public class VehicleService {
 
     public List<VehicleDto> findAllVehicles() {
         return vehicleRepository
-        .findAll()
-        .stream()
-        .map(vehicleMapper::vehicleToVehicleDto).toList();
+                .findAll()
+                .stream()
+                .map(vehicleMapper::vehicleToVehicleDto).toList();
     }
 
     public VehicleDto findVehicleById(long id) throws NotFoundException {
@@ -44,8 +44,8 @@ public class VehicleService {
         return vehicleMapper.vehicleToVehicleDto(existingVehicle.get());
     }
 
-    public void deleteVehicleByNumberplate(String numberplate) {
-        vehicleRepository.deleteByNumberplate(numberplate);
+    public void deleteVehicleById(Long id) {
+        vehicleRepository.deleteById(id);
     }
 
     public VehicleDto updateVehicleById(Long id, VehicleDto vehicleDto) {
