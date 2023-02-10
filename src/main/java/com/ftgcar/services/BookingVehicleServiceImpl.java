@@ -2,7 +2,7 @@ package com.ftgcar.services;
 
 import com.ftgcar.dao.BookingVehicleRepository;
 import com.ftgcar.dto.BookingVehicleDto;
-import com.ftgcar.exceptions.ResourceNotFound;
+import com.ftgcar.exception.ResourceNotFound;
 import com.ftgcar.mapper.BookingVehicleMapper;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
