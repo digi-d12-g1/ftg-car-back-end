@@ -25,10 +25,13 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public VehicleDto addVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
+    //////////////////////////////////// Ajouter Employee
+    //////////////////////////////////// //////////////////////////////
+
+    public List<VehicleDto> addVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
         checkIfVehicleAlreadyExistsForAdd(vehicleDto);
         vehicleRepository.save(vehicleMapper.vehicleDtoToVehicle(vehicleDto));
-        return vehicleDto;
+        return findAllVehicles();
     }
 
     private void checkIfVehicleAlreadyExistsForAdd(VehicleDto vehicleDto) throws AlreadyExistsException {
@@ -42,6 +45,9 @@ public class VehicleService {
                     String.format("Le véhicule avec l'immatriculation %s existe déjà.", vehicleDto.numberplate()));
         }
     }
+
+    //////////////////////////////////// Afficher Employee
+    //////////////////////////////////// //////////////////////////////
 
     public List<VehicleDto> findAllVehicles() {
         return vehicleRepository
@@ -58,14 +64,19 @@ public class VehicleService {
         return vehicleMapper.vehicleToVehicleDto(existingVehicle.get());
     }
 
-    public void deleteVehicleById(Long id) {
-        Optional<Vehicle> existingVehicle = vehicleRepository.findById(id);
-        if (existingVehicle.isPresent()) {
-            vehicleRepository.deleteById(id);
-        }
+    //////////////////////////////////// Delete Employee
+    //////////////////////////////////// //////////////////////////////
+
+    public List<VehicleDto> deleteVehicleById(Long id) throws NotFoundException {
+        findVehicleById(id);
+        vehicleRepository.deleteById(id);
+        return findAllVehicles();
     }
 
-    public VehicleDto updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
+    //////////////////////////////////// Update Employee
+    //////////////////////////////////// //////////////////////////////
+
+    public List<VehicleDto> updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
         Optional<Vehicle> vehicleToUpdate = vehicleRepository.findById(vehicleDto.id());
         if (vehicleToUpdate.isPresent()) {
             Optional<Vehicle> vehicleExistingWithNumberplate = vehicleRepository
@@ -75,8 +86,10 @@ public class VehicleService {
                 throw new AlreadyExistsException(
                         String.format("L'immatriculation %s existe déjà.", vehicleDto.numberplate()));
             }
-            return vehicleMapper.vehicleToVehicleDto(vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get()));
+            vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get());
+        } else {
+            addVehicle(vehicleDto);
         }
-        return addVehicle(vehicleDto);
+        return findAllVehicles();
     }
 }
