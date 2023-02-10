@@ -26,8 +26,7 @@ public class VehicleController {
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
     public List<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
-        vehicleService.addVehicle(vehicleDto);
-        return findAllVehicles();
+        return vehicleService.addVehicle(vehicleDto);
     }
 
     @GetMapping("/findAll")
@@ -41,14 +40,14 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteVehicleById(@PathVariable long id) {
+    // @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteVehicleById(@PathVariable long id) throws NotFoundException {
         vehicleService.deleteVehicleById(id);
     }
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public VehicleDto updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
+    public List<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
         return vehicleService.updateVehicle(vehicleDto);
     }
 

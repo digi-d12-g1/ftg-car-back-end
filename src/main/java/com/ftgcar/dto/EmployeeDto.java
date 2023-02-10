@@ -1,9 +1,9 @@
 package com.ftgcar.dto;
 
 public record EmployeeDto(
-                Long id,
-                String username,
-                String password
+        Long id,
+        String username,
+        String password
 
 ) {
 }
