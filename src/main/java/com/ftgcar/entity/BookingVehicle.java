@@ -1,7 +1,9 @@
 package com.ftgcar.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
+
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking_vehicle")
@@ -12,16 +14,16 @@ public class BookingVehicle {
     private Long id;
 
     @Column(name = "departure", nullable = false)
-    private Instant departure;
+    private LocalDateTime departure;
 
     @Column(name = "arrival")
-    private Instant arrival;
+    private LocalDateTime arrival;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_vehicle", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_vehicle", nullable = false) 
     private Vehicle idVehicle;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_employee", nullable = false)
     private Employee idEmployee;
 
@@ -33,19 +35,19 @@ public class BookingVehicle {
         this.id = id;
     }
 
-    public Instant getDeparture() {
+    public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Instant departure) {
+    public void setDeparture(LocalDateTime departure) {
         this.departure = departure;
     }
 
-    public Instant getArrival() {
+    public LocalDateTime getArrival() {
         return arrival;
     }
 
-    public void setArrival(Instant arrival) {
+    public void setArrival(LocalDateTime arrival) {
         this.arrival = arrival;
     }
 

@@ -1,11 +1,17 @@
 package com.ftgcar.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "vehicle")
@@ -27,14 +33,18 @@ public class Vehicle {
     @Column(name = "model", nullable = false, length = 50)
     private String model;
 
-    @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    @Column(name = "vehicle_status", nullable = false, length = 20)
+    private String vehicleStatus;
 
     @Column(name = "category", nullable = false, length = 25)
     private String category;
 
     @Column(name = "seat_capacity", nullable = false)
     private Short seatCapacity;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "idVehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private final List<BookingVehicle> bookingVehicles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -76,12 +86,12 @@ public class Vehicle {
         this.model = model;
     }
 
-    public String getStatus() {
-        return status;
+    public String getVehicleStatus() {
+        return vehicleStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
     }
 
     public String getCategory() {
@@ -100,4 +110,7 @@ public class Vehicle {
         this.seatCapacity = seatCapacity;
     }
 
+    public List<BookingVehicle> getBookingVehicles() {
+        return bookingVehicles;
+    }
 }

@@ -8,7 +8,7 @@ VALUES
     ('admin', 'password');
 
 -- vehicle table
-INSERT INTO vehicle (picture, numberplate, brand, model, status, category, seat_capacity)
+INSERT INTO vehicle (picture, numberplate, brand, model, vehicle_status, category, seat_capacity)
 VALUES
     ('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg/1920px-2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg',
      '111xxx999', 'Toyota', 'Camry Ascent', 'available', 'Sedan', 4),
@@ -33,12 +33,12 @@ VALUES
     (5);
 
 -- advert_carpooling table
-INSERT INTO advert_carpooling ( departure, departure_adress, arrival_adress, seat_available, id_vehicle, id_employee)
+INSERT INTO advert_carpooling ( departure, departure_adress, arrival_adress, seat_available, id_employee)
 VALUES
-    ('2022-10-01 08:00:00', 'address1', 'address2', 4, 1, 1),
-    ('2022-10-02 09:00:00', 'address3', 'address4', 3, 2, 2),
-    ('2022-10-03 10:00:00', 'address5', 'address6', 2, 3, 3),
-    ('2022-10-04 11:00:00', 'address7', 'address8', 1, 4, 4);
+    ('2022-10-01 08:00:00', 'address1', 'address2', 4, 1),
+    ('2022-10-02 09:00:00', 'address3', 'address4', 3, 2),
+    ('2022-10-03 10:00:00', 'address5', 'address6', 2, 3),
+    ('2022-10-04 11:00:00', 'address7', 'address8', 1, 4);
 
 -- booking_advert_carpooling table
 INSERT INTO booking_advert_carpooling ( id_advert_carpooling, id_employee)
@@ -47,9 +47,3 @@ VALUES
     (2, 2),
     (3, 3),
     (4, 4);
-
--- management_vehicle table
-INSERT INTO management_vehicle (id_vehicle, id_admin)
-VALUES
-    (1, 1),
-    (2, 1);

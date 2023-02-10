@@ -2,6 +2,8 @@ package com.ftgcar.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "advert_carpooling")
@@ -23,12 +25,11 @@ public class AdvertCarpooling {
     private Short seatAvailable;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_vehicle", nullable = false)
-    private Vehicle idVehicle;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_employee", nullable = false)
     private Employee idEmployee;
+
+    @OneToMany(mappedBy = "idAdvertCarpooling", cascade = CascadeType.ALL)
+    private List<BookingAdvertCarpooling> bookingAdvertCarpoolings = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -70,20 +71,16 @@ public class AdvertCarpooling {
         this.seatAvailable = seatAvailable;
     }
 
-    public Vehicle getIdVehicle() {
-        return idVehicle;
-    }
-
-    public void setIdVehicle(Vehicle idVehicle) {
-        this.idVehicle = idVehicle;
-    }
-
     public Employee getIdEmployee() {
         return idEmployee;
     }
 
     public void setIdEmployee(Employee idEmployee) {
         this.idEmployee = idEmployee;
+    }
+
+    public List<BookingAdvertCarpooling> getBookingAdvertCarpoolings() {
+        return bookingAdvertCarpoolings;
     }
 
 }
