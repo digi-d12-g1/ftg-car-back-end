@@ -1,9 +1,12 @@
 package com.ftgcar.controllers;
 
 import com.ftgcar.dto.VehicleDto;
+import com.ftgcar.exception.AlreadyExistsException;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +24,8 @@ public class VehicleController {
     }
 
     @PostMapping("/add")
-    public List<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto) {
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public List<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
         vehicleService.addVehicle(vehicleDto);
         return findAllVehicles();
     }
@@ -37,13 +41,25 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteVehicleById(@PathVariable long id) {
         vehicleService.deleteVehicleById(id);
     }
 
-    @PutMapping("/update/{id}")
-    public VehicleDto updateVehicle(@PathVariable Long id, @RequestBody VehicleDto vehicleDto) {
-        return vehicleService.updateVehicleById(id, vehicleDto);
+    @PutMapping("/update")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public VehicleDto updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
+        return vehicleService.updateVehicle(vehicleDto);
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<String> handleAlreadyExistsException(AlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> handleNotFoundException(NotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
 }
