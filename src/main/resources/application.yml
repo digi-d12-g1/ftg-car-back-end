@@ -1,8 +1,8 @@
 spring:
   #  Database
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/ftg-car
+    username: ftg-car
     password: password
 
   flyway:
