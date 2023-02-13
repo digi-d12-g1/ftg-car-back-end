@@ -24,6 +24,14 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    //////////////////////////////////// Authentification
+    //////////////////////////////////// //////////////////////////////
+
+    @GetMapping("/checkAuth")
+    public EmployeeDto getUserCo(@RequestBody EmployeeDto authEmployeeDto) throws NotFoundException {
+        return employeeService.getUserCo(authEmployeeDto);
+    }
+
     //////////////////////////////////// Find All //////////////////////////////
 
     @GetMapping("/findAll")
