@@ -2,6 +2,8 @@ package com.ftgcar.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
@@ -11,6 +13,7 @@ import java.time.Instant;
 public class FlywaySchemaHistory {
     @Id
     @Column(name = "installed_rank", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "version", length = 50)
