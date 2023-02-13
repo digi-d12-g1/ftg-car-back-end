@@ -35,15 +35,19 @@ public class AdvertCarpooling {
     public AdvertCarpooling() {
     }
 
-    public AdvertCarpooling(LocalDateTime departure, String arrivalAdress, Short seatAvailable, Employee idEmployee) {
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee) {
+        this.id = id;
         this.departure = departure;
+        this.departureAdress = departureAdress;
         this.arrivalAdress = arrivalAdress;
         this.seatAvailable = seatAvailable;
         this.idEmployee = idEmployee;
     }
 
-    public AdvertCarpooling(LocalDateTime departure, String arrivalAdress, Short seatAvailable, Employee idEmployee, List<BookingAdvertCarpooling> bookingAdvertCarpoolings) {
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee, List<BookingAdvertCarpooling> bookingAdvertCarpoolings) {
+        this.id = id;
         this.departure = departure;
+        this.departureAdress = departureAdress;
         this.arrivalAdress = arrivalAdress;
         this.seatAvailable = seatAvailable;
         this.idEmployee = idEmployee;
