@@ -1,7 +1,6 @@
 package com.ftgcar.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import com.ftgcar.dto.AdvertCarpoolingDto;

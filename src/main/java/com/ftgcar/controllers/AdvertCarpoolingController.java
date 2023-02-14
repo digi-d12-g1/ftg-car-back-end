@@ -1,5 +1,6 @@
 package com.ftgcar.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftgcar.dto.AdvertCarpoolingDto;
-import com.ftgcar.dto.EmployeeDto;
+import com.ftgcar.dto.DatesDto;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.services.AdvertCarpoolingService;
 
@@ -34,13 +35,14 @@ public class AdvertCarpoolingController {
         this.advertCarpoolingService = advertCarpoolingService;
     }
 
-    @GetMapping("/findAllAvailable")
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsWithSeatAvailable() {
-        return advertCarpoolingService.findAllAdvertCarpoolingsWithSeatAvailable();
+    @GetMapping("/findAllBetweenDates")
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(@RequestBody DatesDto datesDto) {
+        return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(datesDto);
     }
 
     @GetMapping("/findOpenedAdverts/{idEmployee}")
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingOpenedByEmployeeId(@PathVariable Long idEmployee) throws NotFoundException {
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingOpenedByEmployeeId(@PathVariable Long idEmployee)
+            throws NotFoundException {
         return advertCarpoolingService.findAllAdvertCarpoolingOpenedByEmployeeId(idEmployee);
     }
 
@@ -51,18 +53,18 @@ public class AdvertCarpoolingController {
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public List<AdvertCarpoolingDto> addAdvertCarpooling(@RequestBody AdvertCarpoolingDto advertCarpoolingDto) {
+    public AdvertCarpoolingDto addAdvertCarpooling(@RequestBody AdvertCarpoolingDto advertCarpoolingDto) {
         return advertCarpoolingService.addAdvertCarpooling(advertCarpoolingDto);
     }
 
     @DeleteMapping("/delete/{id}")
-    public List<AdvertCarpoolingDto> deleteAdvertCarpooling(@PathVariable Long id) throws NotFoundException {
-        return advertCarpoolingService.deleteAdvertCarpooling(id);
+    public void deleteAdvertCarpooling(@PathVariable Long id) throws NotFoundException {
+        advertCarpoolingService.deleteAdvertCarpooling(id);
     }
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public List<AdvertCarpoolingDto> updateAdvertCarpooling(@RequestBody AdvertCarpoolingDto advertCarpoolingDto) throws NotFoundException {
+    public AdvertCarpoolingDto updateAdvertCarpooling(@RequestBody AdvertCarpoolingDto advertCarpoolingDto) {
         return advertCarpoolingService.updateAdvertCarpooling(advertCarpoolingDto);
     }
 
