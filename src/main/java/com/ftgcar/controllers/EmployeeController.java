@@ -27,7 +27,7 @@ public class EmployeeController {
     //////////////////////////////////// Authentification
     //////////////////////////////////// //////////////////////////////
 
-    @GetMapping("/checkAuth")
+    @PostMapping("/checkAuth")
     public EmployeeDto getUserCo(@RequestBody EmployeeDto authEmployeeDto) throws NotFoundException {
         return employeeService.getUserCo(authEmployeeDto);
     }

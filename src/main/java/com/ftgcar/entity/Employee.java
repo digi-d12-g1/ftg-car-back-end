@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +28,9 @@ public class Employee {
 
     @Column(name = "password", nullable = false, length = 50)
     private String password;
+
+    @Column(name = "isAdmin", nullable = false)
+    private Boolean isAdmin;
 
     @JsonIgnore
     @OneToMany(mappedBy = "idEmployee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -57,6 +62,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public List<AdvertCarpooling> getAdvertCarpoolings() {
