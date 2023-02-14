@@ -2,7 +2,9 @@ CREATE TABLE IF NOT EXISTS employee
 (
    id BIGSERIAL PRIMARY KEY,
    username VARCHAR(25) UNIQUE NOT NULL,
-   password VARCHAR(50) NOT NULL
+   password VARCHAR(50) NOT NULL,
+   is_admin BOOLEAN NOT NULL
+  
 );
 
 CREATE TABLE IF NOT EXISTS vehicle
@@ -28,13 +30,6 @@ CREATE TABLE IF NOT EXISTS booking_vehicle
    FOREIGN KEY(id_employee) REFERENCES employee(id)
 );
 
-CREATE TABLE IF NOT EXISTS admin
-(
-   id BIGSERIAL PRIMARY KEY,
-   id_employee INT NOT NULL,
-   UNIQUE(id_employee),
-   FOREIGN KEY(id_employee) REFERENCES employee(id)
-);
 
 CREATE TABLE IF NOT EXISTS advert_carpooling
 (
