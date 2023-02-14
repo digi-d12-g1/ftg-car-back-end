@@ -1,6 +1,7 @@
 package com.ftgcar.services;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +32,9 @@ public class AdvertCarpoolingService {
         this.employeeService = employeeService;
     }
 
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(DatesDto dateDto) {
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(Date dateBegin, Date dateEnd) {
         return advertCarpoolingRepository
-                .findAllByDepartureGreaterThanEqualAndDepartureLessThanEqual(dateDto.dateBegin(), dateDto.dateEnd())
+                .findAllByDepartureGreaterThanEqualAndDepartureLessThanEqual(dateBegin, dateEnd)
                 .stream()
                 .map(advertCarpoolingMapper::advertCarpoolingToAdvertCarpoolingDto)
                 .toList();

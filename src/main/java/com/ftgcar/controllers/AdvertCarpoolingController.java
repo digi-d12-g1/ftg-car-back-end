@@ -1,6 +1,6 @@
 package com.ftgcar.controllers;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftgcar.dto.AdvertCarpoolingDto;
-import com.ftgcar.dto.DatesDto;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.services.AdvertCarpoolingService;
 
@@ -35,9 +34,10 @@ public class AdvertCarpoolingController {
         this.advertCarpoolingService = advertCarpoolingService;
     }
 
-    @GetMapping("/findAllBetweenDates")
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(@RequestBody DatesDto datesDto) {
-        return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(datesDto);
+    @GetMapping("/findAllBetweenDates/{dateBegin}/{dateEnd}")
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(@PathVariable Date dateBegin,
+            @PathVariable Date dateEnd) {
+        return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(dateBegin, dateEnd);
     }
 
     @GetMapping("/findOpenedAdverts/{idEmployee}")
