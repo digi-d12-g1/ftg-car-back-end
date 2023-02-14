@@ -1,5 +1,6 @@
 package com.ftgcar.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,13 @@ public class VehicleService {
                 .map(vehicleMapper::vehicleToVehicleDto).toList();
     }
 
+    // Search vehicles available on given time
+    public List<VehicleDto> getVehiclesAvailableForBooking(Date departure, Date arrival) {
+        return this.vehicleRepository
+                .findByBookingDate(departure, arrival)
+                .stream().map(vehicleMapper::vehicleToVehicleDto).toList();
+    }
+
     public VehicleDto findVehicleById(long id) throws NotFoundException {
         Optional<Vehicle> existingVehicle = vehicleRepository.findById(id);
         if (existingVehicle.isEmpty()) {
@@ -72,9 +80,6 @@ public class VehicleService {
         vehicleRepository.deleteById(id);
         return findAllVehicles();
     }
-
-    //////////////////////////////////// Update Employee
-    //////////////////////////////////// //////////////////////////////
 
     public List<VehicleDto> updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
         Optional<Vehicle> vehicleToUpdate = vehicleRepository.findById(vehicleDto.id());

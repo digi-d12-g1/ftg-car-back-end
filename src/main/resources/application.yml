@@ -15,6 +15,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         ddl_auto: validate
+        show_sql: true
 
   # API
   data:
