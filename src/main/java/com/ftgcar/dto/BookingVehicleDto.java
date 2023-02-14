@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 /**
  * A DTO for the {@link com.ftgcar.entity.BookingVehicle} entity
  */
-public record BookingVehicleDto(LocalDateTime departure, LocalDateTime arrival, Vehicle idVehicle,
-                                Employee idEmployee)  {
+public record BookingVehicleDto(
+    LocalDateTime departure,
+    LocalDateTime arrival, 
+    Vehicle idVehicle,
+    Employee idEmployee)  {
 }

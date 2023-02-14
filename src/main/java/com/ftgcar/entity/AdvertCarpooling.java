@@ -1,7 +1,7 @@
 package com.ftgcar.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class AdvertCarpooling {
     private Long id;
 
     @Column(name = "departure", nullable = false)
-    private Instant departure;
+    private LocalDateTime departure;
 
     @Column(name = "departure_adress", nullable = false, length = 50)
     private String departureAdress;
@@ -32,6 +32,28 @@ public class AdvertCarpooling {
     @OneToMany(mappedBy = "idAdvertCarpooling", cascade = CascadeType.ALL)
     private List<BookingAdvertCarpooling> bookingAdvertCarpoolings = new ArrayList<>();
 
+    public AdvertCarpooling() {
+    }
+
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee) {
+        this.id = id;
+        this.departure = departure;
+        this.departureAdress = departureAdress;
+        this.arrivalAdress = arrivalAdress;
+        this.seatAvailable = seatAvailable;
+        this.idEmployee = idEmployee;
+    }
+
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee, List<BookingAdvertCarpooling> bookingAdvertCarpoolings) {
+        this.id = id;
+        this.departure = departure;
+        this.departureAdress = departureAdress;
+        this.arrivalAdress = arrivalAdress;
+        this.seatAvailable = seatAvailable;
+        this.idEmployee = idEmployee;
+        this.bookingAdvertCarpoolings = bookingAdvertCarpoolings;
+    }
+
     public Long getId() {
         return id;
     }
@@ -40,11 +62,11 @@ public class AdvertCarpooling {
         this.id = id;
     }
 
-    public Instant getDeparture() {
+    public LocalDateTime getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Instant departure) {
+    public void setDeparture(LocalDateTime departure) {
         this.departure = departure;
     }
 

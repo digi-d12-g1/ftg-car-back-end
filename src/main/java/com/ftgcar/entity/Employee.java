@@ -27,7 +27,8 @@ public class Employee {
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
-    @OneToMany(mappedBy = "idEmployee", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "idEmployee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<AdvertCarpooling> advertCarpoolings = new ArrayList<>();
 
     @JsonIgnore

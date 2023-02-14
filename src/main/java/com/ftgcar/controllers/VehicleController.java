@@ -48,7 +48,7 @@ public class VehicleController {
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public List<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
+    public List<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
         return vehicleService.updateVehicle(vehicleDto);
     }
 

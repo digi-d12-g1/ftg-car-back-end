@@ -81,7 +81,10 @@ public class VehicleService {
         return findAllVehicles();
     }
 
-    public List<VehicleDto> updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
+    //////////////////////////////////// Update Employee
+    //////////////////////////////////// //////////////////////////////
+
+    public List<VehicleDto> updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
         Optional<Vehicle> vehicleToUpdate = vehicleRepository.findById(vehicleDto.id());
         if (vehicleToUpdate.isPresent()) {
             Optional<Vehicle> vehicleExistingWithNumberplate = vehicleRepository
@@ -93,7 +96,7 @@ public class VehicleService {
             }
             vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get());
         } else {
-            addVehicle(vehicleDto);
+            throw new NotFoundException("Le véhicule souhaité n'existe pas.");
         }
         return findAllVehicles();
     }
