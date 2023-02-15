@@ -1,5 +1,6 @@
 package com.ftgcar.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.ftgcar.dao.AdvertCarpoolingRepository;
 import com.ftgcar.dto.AdvertCarpoolingDto;
+import com.ftgcar.dto.BookingAdvertCarpoolingDto;
 import com.ftgcar.dto.EmployeeDto;
 import com.ftgcar.entity.AdvertCarpooling;
-import com.ftgcar.entity.Employee;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.mapper.AdvertCarpoolingMapper;
 
@@ -30,19 +31,18 @@ public class AdvertCarpoolingService {
         this.employeeService = employeeService;
     }
 
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsWithSeatAvailable() {
-        Short zero = 0;
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(Date dateBegin, Date dateEnd) {
         return advertCarpoolingRepository
-                .findAllBySeatAvailableGreaterThan(zero)
+                .findAllByDepartureGreaterThanEqualAndDepartureLessThanEqual(dateBegin, dateEnd)
                 .stream()
                 .map(advertCarpoolingMapper::advertCarpoolingToAdvertCarpoolingDto)
                 .toList();
     }
 
-    public List<AdvertCarpoolingDto> addAdvertCarpooling(AdvertCarpoolingDto advertCarpoolingDto) {
+    public AdvertCarpoolingDto addAdvertCarpooling(AdvertCarpoolingDto advertCarpoolingDto) {
         advertCarpoolingRepository
                 .save(advertCarpoolingMapper.advertCarpoolingDtoToAdvertCarpooling(advertCarpoolingDto));
-        return findAllAdvertCarpoolingsWithSeatAvailable();
+        return advertCarpoolingDto;
     }
 
     public List<AdvertCarpoolingDto> findAllAdvertCarpoolingOpenedByEmployeeId(Long idEmployee)
@@ -62,20 +62,32 @@ public class AdvertCarpoolingService {
         return advertCarpoolingMapper.advertCarpoolingToAdvertCarpoolingDto(existingAdvert.get());
     }
 
-    public List<AdvertCarpoolingDto> deleteAdvertCarpooling(Long id) throws NotFoundException {
+    public void deleteAdvertCarpooling(Long id) throws NotFoundException {
         findAdvertCarpoolingById(id);
         advertCarpoolingRepository.deleteById(id);
-        return findAllAdvertCarpoolingsWithSeatAvailable();
     }
 
-    public List<AdvertCarpoolingDto> updateAdvertCarpooling(AdvertCarpoolingDto advertCarpoolingDto)
-            throws NotFoundException {
+    public AdvertCarpoolingDto updateAdvertCarpooling(AdvertCarpoolingDto advertCarpoolingDto) {
         Optional<AdvertCarpooling> existingAdvertCarpooling = advertCarpoolingRepository
                 .findById(advertCarpoolingDto.id());
         if (existingAdvertCarpooling.isPresent()) {
             advertCarpoolingMapper.updateAdvertCarpooling(advertCarpoolingDto, existingAdvertCarpooling.get());
         }
-        return findAllAdvertCarpoolingsWithSeatAvailable();
+        return advertCarpoolingDto;
+    }
+
+    public void bookASeat(AdvertCarpoolingDto existingAdvertCarpooling) {
+        Optional<AdvertCarpooling> advertCarpooling = advertCarpoolingRepository.findById(existingAdvertCarpooling.id());
+        if(advertCarpooling.isPresent()) {
+            advertCarpooling.get().setSeatAvailable((short) (advertCarpooling.get().getSeatAvailable() - 1));
+            advertCarpoolingRepository.save(advertCarpooling.get());
+        }
+    }
+
+    public void freeUpASeat(BookingAdvertCarpoolingDto bookingAdvertCarpoolingDto) {
+        AdvertCarpooling advertCarpooling = bookingAdvertCarpoolingDto.idAdvertCarpooling();
+        advertCarpooling.setSeatAvailable((short) (advertCarpooling.getSeatAvailable() + 1));
+        advertCarpoolingRepository.save(advertCarpooling);
     }
 
 }
