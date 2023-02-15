@@ -4,8 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-!**/src/main/**/ftgcar/application.yml
-# src/main/java/com/ftgcar/application.yml
+
 
 ### STS ###
 .apt_generated
