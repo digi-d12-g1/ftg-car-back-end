@@ -1,6 +1,9 @@
 package com.ftgcar.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +32,15 @@ public class AdvertCarpooling {
     @JoinColumn(name = "id_employee", nullable = false)
     private Employee idEmployee;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "idAdvertCarpooling", cascade = CascadeType.ALL)
     private List<BookingAdvertCarpooling> bookingAdvertCarpoolings = new ArrayList<>();
 
     public AdvertCarpooling() {
     }
 
-    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee) {
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress,
+            Short seatAvailable, Employee idEmployee) {
         this.id = id;
         this.departure = departure;
         this.departureAdress = departureAdress;
@@ -44,7 +49,8 @@ public class AdvertCarpooling {
         this.idEmployee = idEmployee;
     }
 
-    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress, Short seatAvailable, Employee idEmployee, List<BookingAdvertCarpooling> bookingAdvertCarpoolings) {
+    public AdvertCarpooling(Long id, LocalDateTime departure, String departureAdress, String arrivalAdress,
+            Short seatAvailable, Employee idEmployee, List<BookingAdvertCarpooling> bookingAdvertCarpoolings) {
         this.id = id;
         this.departure = departure;
         this.departureAdress = departureAdress;
