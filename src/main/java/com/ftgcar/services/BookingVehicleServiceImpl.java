@@ -30,9 +30,11 @@ public class BookingVehicleServiceImpl implements BookingVehicleService {
 
     @Override
     public void updateBooking(Long id, BookingVehicleDto bookingVehicleDto) {
-        this.bookingVehicleRepository.findById(id).map(booking -> {
-            return bookingVehicleRepository.save(bookingVehicleMapper.toEntity(bookingVehicleDto));
-        }).orElseThrow(() -> new NullPointerException(String.format("Error while updating booking for id %d", id)));
+        this.bookingVehicleRepository
+                .findById(id)
+                .map(booking ->
+                        bookingVehicleRepository.save(bookingVehicleMapper.toEntity(bookingVehicleDto)))
+                .orElseThrow(() -> new NullPointerException(String.format("Error while updating booking for id %d", id)));
     }
 
     @Override
@@ -48,6 +50,14 @@ public class BookingVehicleServiceImpl implements BookingVehicleService {
     public List<BookingVehicleDto> findAllBookings() {
         return bookingVehicleRepository
                 .findAll()
+                .stream()
+                .map(bookingVehicleMapper::toDto).toList();
+    }
+
+    @Override
+    public List<BookingVehicleDto> findAllByEmployeeId(Long employeeId) {
+        return this.bookingVehicleRepository
+                .findBookingVehicleByIdEmployee(employeeId)
                 .stream()
                 .map(bookingVehicleMapper::toDto).toList();
     }

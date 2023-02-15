@@ -10,4 +10,5 @@ public interface BookingVehicleService {
     void updateBooking(Long id, BookingVehicleDto bookingVehicleDto);
     void deleteBooking(Long id);
     List<BookingVehicleDto> findAllBookings();
+    List<BookingVehicleDto> findAllByEmployeeId(Long employeeId);
 }
