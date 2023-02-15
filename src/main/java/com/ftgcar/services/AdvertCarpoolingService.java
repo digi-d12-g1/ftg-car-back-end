@@ -1,6 +1,5 @@
 package com.ftgcar.services;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ftgcar.dao.AdvertCarpoolingRepository;
 import com.ftgcar.dto.AdvertCarpoolingDto;
-import com.ftgcar.dto.DatesDto;
+import com.ftgcar.dto.BookingAdvertCarpoolingDto;
 import com.ftgcar.dto.EmployeeDto;
 import com.ftgcar.entity.AdvertCarpooling;
 import com.ftgcar.exception.NotFoundException;
@@ -81,7 +80,14 @@ public class AdvertCarpoolingService {
         Optional<AdvertCarpooling> advertCarpooling = advertCarpoolingRepository.findById(existingAdvertCarpooling.id());
         if(advertCarpooling.isPresent()) {
             advertCarpooling.get().setSeatAvailable((short) (advertCarpooling.get().getSeatAvailable() - 1));
+            advertCarpoolingRepository.save(advertCarpooling.get());
         }
+    }
+
+    public void freeUpASeat(BookingAdvertCarpoolingDto bookingAdvertCarpoolingDto) {
+        AdvertCarpooling advertCarpooling = bookingAdvertCarpoolingDto.idAdvertCarpooling();
+        advertCarpooling.setSeatAvailable((short) (advertCarpooling.getSeatAvailable() + 1));
+        advertCarpoolingRepository.save(advertCarpooling);
     }
 
 }
