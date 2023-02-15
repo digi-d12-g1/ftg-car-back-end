@@ -24,6 +24,21 @@ public class EmployeeService {
     public EmployeeService(EmployeeMapper employeeMapper, EmployeeRepository employeeRepository) {
         this.employeeMapper = employeeMapper;
         this.employeeRepository = employeeRepository;
+
+    }
+
+    //////////////////////////////////// Find All //////////////////////////////
+
+    public EmployeeDto getUserCo(EmployeeDto authEmployeeDto) throws NotFoundException {
+        Optional<Employee> existingEmployeeByUsername = employeeRepository.findByUsername(authEmployeeDto.username());
+        if (!existingEmployeeByUsername.isPresent()) {
+            throw new NotFoundException(
+                    String.format("L'employé avec le pseudo %s n'existe pas", authEmployeeDto.username()));
+        } else if (!existingEmployeeByUsername.get().getPassword().equals(authEmployeeDto.password())) {
+            throw new NotFoundException(
+                    String.format("Le mot de passe ne correspond pas", authEmployeeDto.username()));
+        }
+        return employeeMapper.employeeToEmployeeDto(existingEmployeeByUsername.get());
     }
 
     //////////////////////////////////// Find All //////////////////////////////

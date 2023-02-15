@@ -1,11 +1,11 @@
 -- employee table
-INSERT INTO employee (username, password)
+INSERT INTO employee (username, password, is_admin)
 VALUES
-    ('user1', 'pass1'),
-    ('user2', 'pass2'),
-    ('user3', 'pass3'),
-    ('user4', 'pass4'),
-    ('admin', 'password');
+    ('user1', 'pass1', false),
+    ('user2', 'pass2', false),
+    ('user3', 'pass3', false),
+    ('user4', 'pass4', false),
+    ('admin', 'password', true);
 
 -- vehicle table
 INSERT INTO vehicle (picture, numberplate, brand, model, vehicle_status, category, seat_capacity)
@@ -27,10 +27,7 @@ VALUES
     ('2022-10-03 08:00:00', '2022-10-03 10:00:00', 3, 3),
     ('2022-10-04 07:00:00', '2022-10-04 09:00:00', 4, 4);
 
--- admin table
-INSERT INTO admin (id_employee)
-VALUES
-    (5);
+
 
 -- advert_carpooling table
 INSERT INTO advert_carpooling ( departure, departure_adress, arrival_adress, seat_available, id_employee)

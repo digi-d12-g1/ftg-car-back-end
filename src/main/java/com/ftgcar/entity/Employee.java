@@ -27,6 +27,9 @@ public class Employee {
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
+    @Column(name = "isAdmin", nullable = false)
+    private Boolean isAdmin;
+
     @JsonIgnore
     @OneToMany(mappedBy = "idEmployee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<AdvertCarpooling> advertCarpoolings = new ArrayList<>();
@@ -57,6 +60,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public List<AdvertCarpooling> getAdvertCarpoolings() {
