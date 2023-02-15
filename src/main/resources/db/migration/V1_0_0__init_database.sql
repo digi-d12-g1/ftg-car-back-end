@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS employee
    username VARCHAR(25) UNIQUE NOT NULL,
    password VARCHAR(50) NOT NULL,
    is_admin BOOLEAN NOT NULL
-  
 );
 
 CREATE TABLE IF NOT EXISTS vehicle
