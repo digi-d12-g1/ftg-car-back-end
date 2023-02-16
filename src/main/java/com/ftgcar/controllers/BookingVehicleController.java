@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The type Booking vehicle controller.
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/api/bookings")
@@ -14,6 +17,11 @@ public class BookingVehicleController {
 
     private final BookingVehicleService bookingVehicleService;
 
+    /**
+     * Instantiates a new Booking vehicle controller.
+     *
+     * @param bookingVehicleService the booking vehicle service
+     */
     @Autowired
     public BookingVehicleController(BookingVehicleService bookingVehicleService) {
         this.bookingVehicleService = bookingVehicleService;
@@ -22,6 +30,11 @@ public class BookingVehicleController {
     @GetMapping("/findAll")
     public List<BookingVehicleDto> findAllBookings() {
         return bookingVehicleService.findAllBookings();
+    }
+
+    @GetMapping("/findByEmployee/{employeeId}")
+    public List<BookingVehicleDto> findAllByEmployee(@PathVariable Long employeeId) {
+        return this.bookingVehicleService.findAllByEmployeeId(employeeId);
     }
 
     @PostMapping
