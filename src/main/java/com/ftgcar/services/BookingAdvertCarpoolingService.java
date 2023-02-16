@@ -10,6 +10,8 @@ import com.ftgcar.dto.AdvertCarpoolingDto;
 import com.ftgcar.dto.BookingAdvertCarpoolingDto;
 import com.ftgcar.dto.EmployeeDto;
 import com.ftgcar.entity.BookingAdvertCarpooling;
+import com.ftgcar.exception.AlreadyExistsException;
+import com.ftgcar.exception.BookingImpossibleException;
 import com.ftgcar.exception.NoMoreSeatException;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.mapper.BookingAdvertCarpoolingMapper;
@@ -41,8 +43,24 @@ public class BookingAdvertCarpoolingService {
     }
 
     public BookingAdvertCarpoolingDto createBooking(BookingAdvertCarpoolingDto bookingAdvertCarpoolingDto)
-            throws NotFoundException, NoMoreSeatException {
+            throws NotFoundException, NoMoreSeatException, AlreadyExistsException, BookingImpossibleException {
+        
         employeeService.findEmployeeById(bookingAdvertCarpoolingDto.idEmployee().getId());
+
+        if (bookingAdvertCarpoolingDto.idAdvertCarpooling().getIdEmployee().getId() == bookingAdvertCarpoolingDto
+                .idEmployee().getId()) {
+            throw new BookingImpossibleException(
+                    "Impossible de réserver une place dans un covoiturage créé par l'utilisateur!");
+        }
+
+        List<BookingAdvertCarpooling> existingBooking = bookingAdvertCarpoolingRepository
+                .findAllByIdEmployeeAndIdAdvertCarpooling(
+                        bookingAdvertCarpoolingDto.idEmployee().getId(),
+                        bookingAdvertCarpoolingDto.idAdvertCarpooling().getId());
+        if (!existingBooking.isEmpty()) {
+            throw new AlreadyExistsException("Une réservation existe déjà sur ce covoiturage.");
+        }
+
         AdvertCarpoolingDto existingAdvertCarpooling = advertCarpoolingService
                 .findAdvertCarpoolingById(bookingAdvertCarpoolingDto.idAdvertCarpooling().getId());
 

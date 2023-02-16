@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ftgcar.dto.BookingAdvertCarpoolingDto;
+import com.ftgcar.exception.AlreadyExistsException;
+import com.ftgcar.exception.BookingImpossibleException;
 import com.ftgcar.exception.NoMoreSeatException;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.services.BookingAdvertCarpoolingService;
@@ -40,7 +42,7 @@ public class BookingAdvertCarpoolingController {
 
     @PostMapping("/book")
     BookingAdvertCarpoolingDto createBooking(@RequestBody BookingAdvertCarpoolingDto bookingAdvertCarpoolingDto)
-            throws NotFoundException, NoMoreSeatException {
+            throws NotFoundException, NoMoreSeatException, AlreadyExistsException, BookingImpossibleException {
         return bookingAdvertCarpoolingService.createBooking(bookingAdvertCarpoolingDto);
     }
 
@@ -56,6 +58,16 @@ public class BookingAdvertCarpoolingController {
 
     @ExceptionHandler(NoMoreSeatException.class)
     public ResponseEntity<String> handleNoMoreSeatException(NoMoreSeatException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<String> handleAlreadyExistsException(AlreadyExistsException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(BookingImpossibleException.class)
+    public ResponseEntity<String> handleBookingImpossibleException(BookingImpossibleException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
