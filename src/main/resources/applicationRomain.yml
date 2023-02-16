@@ -1,0 +1,30 @@
+spring:
+  #  Database
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+
+  jackson:
+    serialization.fail-on-empty-beans: false
+
+  flyway:
+    baseline-on-migrate: true
+
+  # JPA
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        ddl_auto: validate
+        show_sql: true
+
+  # API
+  data:
+    rest:
+      base-path: /api
+      detection-strategy: ANNOTATED
+      allowedOrigins: http://localhost:4200
+server:
+  port: 4444
