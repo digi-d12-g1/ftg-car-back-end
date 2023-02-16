@@ -46,6 +46,18 @@ public class Vehicle {
     @OneToMany(mappedBy = "idVehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final List<BookingVehicle> bookingVehicles = new ArrayList<>();
 
+    public Vehicle(long id, String picture, String numberplate, String brand, String model, String vehicleStatus,
+            String category, short seatCapacity) {
+        this.id = id;
+        this.picture = picture;
+        this.numberplate = numberplate;
+        this.brand = brand;
+        this.model = model;
+        this.vehicleStatus = vehicleStatus;
+        this.category = category;
+        this.seatCapacity = seatCapacity;
+    }
+
     public Long getId() {
         return id;
     }
