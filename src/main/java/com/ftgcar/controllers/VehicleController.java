@@ -26,7 +26,7 @@ public class VehicleController {
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public List<VehicleDto> addVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
+    public VehicleDto addVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException {
         return vehicleService.addVehicle(vehicleDto);
     }
 

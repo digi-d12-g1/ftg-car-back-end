@@ -29,10 +29,11 @@ public class VehicleService {
     //////////////////////////////////// Ajouter Employee
     //////////////////////////////////// //////////////////////////////
 
-    public List<VehicleDto> addVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
+    public VehicleDto addVehicle(VehicleDto vehicleDto) throws AlreadyExistsException {
         checkIfVehicleAlreadyExistsForAdd(vehicleDto);
-        vehicleRepository.save(vehicleMapper.vehicleDtoToVehicle(vehicleDto));
-        return findAllVehicles();
+        Vehicle vehicleToSave = vehicleMapper.vehicleDtoToVehicle(vehicleDto);
+        vehicleRepository.save(vehicleToSave);
+        return vehicleMapper.vehicleToVehicleDto(vehicleToSave);
     }
 
     private void checkIfVehicleAlreadyExistsForAdd(VehicleDto vehicleDto) throws AlreadyExistsException {

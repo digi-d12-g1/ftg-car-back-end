@@ -47,8 +47,8 @@ public class BookingAdvertCarpoolingService {
         
         employeeService.findEmployeeById(bookingAdvertCarpoolingDto.idEmployee().getId());
 
-        if (bookingAdvertCarpoolingDto.idAdvertCarpooling().getIdEmployee().getId() == bookingAdvertCarpoolingDto
-                .idEmployee().getId()) {
+        if (bookingAdvertCarpoolingDto.idAdvertCarpooling().getIdEmployee().getId().equals(bookingAdvertCarpoolingDto
+                .idEmployee().getId())) {
             throw new BookingImpossibleException(
                     "Impossible de réserver une place dans un covoiturage créé par l'utilisateur!");
         }
