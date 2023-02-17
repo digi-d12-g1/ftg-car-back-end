@@ -22,7 +22,7 @@ import com.ftgcar.dto.AdvertCarpoolingDto;
 import com.ftgcar.exception.NotFoundException;
 import com.ftgcar.services.AdvertCarpoolingService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api/advert-carpoolings")
 public class AdvertCarpoolingController {
@@ -34,7 +34,7 @@ public class AdvertCarpoolingController {
         this.advertCarpoolingService = advertCarpoolingService;
     }
 
-    @GetMapping("/findAllBetweenDates")
+    @GetMapping("/findAllBeginDate/{date}")
     public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsAtDate(@PathVariable Date date) {
 
         return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(date);

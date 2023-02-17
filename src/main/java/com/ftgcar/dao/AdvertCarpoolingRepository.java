@@ -13,7 +13,8 @@ import com.ftgcar.entity.AdvertCarpooling;
 @Repository
 public interface AdvertCarpoolingRepository extends JpaRepository<AdvertCarpooling, Long> {
 
-    @Query(value = "SELECT * FROM advert_carpooling advert WHERE departure = :date", nativeQuery = true)
+    @Query(nativeQuery = true, value = "SELECT * FROM advert_carpooling advert WHERE "
+            + "advert.departure >= :date")
     List<AdvertCarpooling> findAllByDepartureEqual(
             @Param("date") Date date);
 
