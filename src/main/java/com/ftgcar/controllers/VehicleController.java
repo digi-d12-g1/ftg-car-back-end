@@ -41,14 +41,14 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    // @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteVehicleById(@PathVariable long id) throws NotFoundException {
         vehicleService.deleteVehicleById(id);
     }
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public List<VehicleDto> updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
+    public VehicleDto updateVehicle(@RequestBody VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
         return vehicleService.updateVehicle(vehicleDto);
     }
 

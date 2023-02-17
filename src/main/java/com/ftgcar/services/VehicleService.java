@@ -76,29 +76,28 @@ public class VehicleService {
     //////////////////////////////////// Delete Employee
     //////////////////////////////////// //////////////////////////////
 
-    public List<VehicleDto> deleteVehicleById(Long id) throws NotFoundException {
+    public void deleteVehicleById(Long id) throws NotFoundException {
         findVehicleById(id);
         vehicleRepository.deleteById(id);
-        return findAllVehicles();
     }
 
     //////////////////////////////////// Update Employee
     //////////////////////////////////// //////////////////////////////
 
-    public List<VehicleDto> updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
+    public VehicleDto updateVehicle(VehicleDto vehicleDto) throws AlreadyExistsException, NotFoundException {
         Optional<Vehicle> vehicleToUpdate = vehicleRepository.findById(vehicleDto.id());
-        if (vehicleToUpdate.isPresent()) {
-            Optional<Vehicle> vehicleExistingWithNumberplate = vehicleRepository
-                    .findByNumberplate(vehicleDto.numberplate());
-            if (vehicleExistingWithNumberplate.isPresent()
-                    && !vehicleExistingWithNumberplate.get().getId().equals(vehicleDto.id())) {
-                throw new AlreadyExistsException(
-                        String.format("L'immatriculation %s existe déjà.", vehicleDto.numberplate()));
-            }
-            vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get());
-        } else {
+        if (vehicleToUpdate.isEmpty()) {
             throw new NotFoundException("Le véhicule souhaité n'existe pas.");
         }
-        return findAllVehicles();
+
+        Optional<Vehicle> vehicleExistingWithNumberplate = vehicleRepository
+                .findByNumberplate(vehicleDto.numberplate());
+        if (vehicleExistingWithNumberplate.isPresent()
+                && !vehicleExistingWithNumberplate.get().getId().equals(vehicleDto.id())) {
+            throw new AlreadyExistsException(
+                    String.format("L'immatriculation %s existe déjà.", vehicleDto.numberplate()));
+        }
+
+        return vehicleMapper.vehicleToVehicleDto(vehicleMapper.updateVehicle(vehicleDto, vehicleToUpdate.get()));
     }
 }

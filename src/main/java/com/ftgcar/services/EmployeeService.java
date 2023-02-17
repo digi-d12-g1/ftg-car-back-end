@@ -35,8 +35,7 @@ public class EmployeeService {
             throw new NotFoundException(
                     String.format("L'employé avec le pseudo %s n'existe pas", authEmployeeDto.username()));
         } else if (!existingEmployeeByUsername.get().getPassword().equals(authEmployeeDto.password())) {
-            throw new NotFoundException(
-                    String.format("Le mot de passe ne correspond pas", authEmployeeDto.username()));
+            throw new NotFoundException("Le mot de passe ne correspond pas");
         }
         return employeeMapper.employeeToEmployeeDto(existingEmployeeByUsername.get());
     }
