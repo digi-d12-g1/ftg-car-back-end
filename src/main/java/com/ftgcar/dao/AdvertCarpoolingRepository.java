@@ -13,9 +13,9 @@ import com.ftgcar.entity.AdvertCarpooling;
 @Repository
 public interface AdvertCarpoolingRepository extends JpaRepository<AdvertCarpooling, Long> {
 
-    @Query(value = "SELECT * FROM advert_carpooling advert WHERE departure <= :dateEnd AND departure >= :dateBegin", nativeQuery = true)
-    List<AdvertCarpooling> findAllByDepartureGreaterThanEqualAndDepartureLessThanEqual(
-            @Param("dateBegin") Date dateBegin, @Param("dateEnd") Date dateEnd);
+    @Query(value = "SELECT * FROM advert_carpooling advert WHERE departure = :date", nativeQuery = true)
+    List<AdvertCarpooling> findAllByDepartureEqual(
+            @Param("date") Date date);
 
     @Query(value = "SELECT * FROM public.advert_carpooling advert WHERE advert.id_employee = (:employeeID)", nativeQuery = true)
     List<AdvertCarpooling> findAllByIdEmployeId(@Param("employeeID") Long idEmployee);

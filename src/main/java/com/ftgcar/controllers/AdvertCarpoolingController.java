@@ -34,10 +34,10 @@ public class AdvertCarpoolingController {
         this.advertCarpoolingService = advertCarpoolingService;
     }
 
-    @GetMapping("/findAllBetweenDates/{dateBegin}/{dateEnd}")
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(@PathVariable Date dateBegin,
-            @PathVariable Date dateEnd) {
-        return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(dateBegin, dateEnd);
+    @GetMapping("/findAllBetweenDates")
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsAtDate(@PathVariable Date date) {
+
+        return advertCarpoolingService.findAllAdvertCarpoolingsBetweenDates(date);
     }
 
     @GetMapping("/findOpenedAdverts/{idEmployee}")

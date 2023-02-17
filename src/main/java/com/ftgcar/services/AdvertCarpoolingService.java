@@ -31,9 +31,9 @@ public class AdvertCarpoolingService {
         this.employeeService = employeeService;
     }
 
-    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(Date dateBegin, Date dateEnd) {
+    public List<AdvertCarpoolingDto> findAllAdvertCarpoolingsBetweenDates(Date date) {
         return advertCarpoolingRepository
-                .findAllByDepartureGreaterThanEqualAndDepartureLessThanEqual(dateBegin, dateEnd)
+                .findAllByDepartureEqual(date)
                 .stream()
                 .map(advertCarpoolingMapper::advertCarpoolingToAdvertCarpoolingDto)
                 .toList();

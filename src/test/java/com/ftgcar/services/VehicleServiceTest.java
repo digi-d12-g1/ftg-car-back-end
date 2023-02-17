@@ -1,4 +1,5 @@
 package com.ftgcar.services;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -21,46 +22,56 @@ import com.ftgcar.mapper.VehicleMapper;
 @ExtendWith(MockitoExtension.class)
 public class VehicleServiceTest {
 
-    @InjectMocks
-    private VehicleService vehicleService;
+        @InjectMocks
+        private VehicleService vehicleService;
 
-    @Mock
-    private VehicleRepository vehicleRepository;
+        @Mock
+        private VehicleRepository vehicleRepository;
 
-    @Mock
-    private VehicleMapper vehicleMapper;
+        @Mock
+        private VehicleMapper vehicleMapper;
 
-    @Nested
-    class AddVehicleTest {
+        VehicleDto vehicleDto = new VehicleDto(1L, "picture", "numberplate", "brand", "model", "available",
+                        "category", (short) 2);
+        Vehicle vehicle = new Vehicle();
 
-        VehicleDto vehicleDtoToAdd = new VehicleDto(1L, "picture", "numberplate", "brand", "model", "available",
-                    "category", (short) 2);
-        Vehicle vehicleToAdd = new Vehicle(1L, "picture", "numberplate", "brand", "model", "available", "category", (short) 2);
-        
+        @Nested
+        class AddVehicleTest {
+
         @Test
         void addVehicleTest_withVehicleDto_savesVehicleAndReturnsVehicleDto() throws AlreadyExistsException {
-            // given
-            when(vehicleRepository.findById(1L)).thenReturn(Optional.empty());
-            when(vehicleRepository.findByNumberplate("numberplate")).thenReturn(Optional.empty());
-            when(vehicleMapper.vehicleDtoToVehicle(vehicleDtoToAdd)).thenReturn(vehicleToAdd);
-            when(vehicleRepository.save(vehicleToAdd)).thenReturn(vehicleToAdd);
-            when(vehicleMapper.vehicleToVehicleDto(vehicleToAdd)).thenReturn(vehicleDtoToAdd);
+        // given
+        vehicle.setId(1L);
+        vehicle.setPicture("picture");
+        vehicle.setNumberplate("numberplate");
+        vehicle.setBrand("brand");
+        vehicle.setModel("model");
+        vehicle.setVehicleStatus("available");
+        vehicle.setCategory("category");
+        vehicle.setSeatCapacity((short) 2);
 
-            // when
-            VehicleDto returnedVehicle = vehicleService.addVehicle(vehicleDtoToAdd);
+        when(vehicleRepository.findById(1L)).thenReturn(Optional.empty());
+        when(vehicleRepository.findByNumberplate("numberplate")).thenReturn(Optional.empty());
+        when(vehicleMapper.vehicleDtoToVehicle(vehicleDto)).thenReturn(vehicle);
+        when(vehicleRepository.save(vehicle)).thenReturn(vehicle);
+        when(vehicleMapper.vehicleToVehicleDto(vehicle)).thenReturn(vehicleDto);
 
-            // then
-            assertSame(returnedVehicle, vehicleDtoToAdd);
+        // when
+        VehicleDto returnedVehicle = vehicleService.addVehicle(vehicleDto);
+
+        // then
+        assertSame(returnedVehicle, vehicleDto);
         }
 
         @Test
         void addVehicleTest_withVehicleDtoNumberplateAlreadyExisting_throwsAlreadyExistsException() {
-            // given
-            when(vehicleRepository.findById(1L)).thenReturn(Optional.empty());
-            when(vehicleRepository.findByNumberplate("numberplate")).thenReturn(Optional.of(vehicleToAdd));
-           
-            // when/then
-            assertThrows(AlreadyExistsException.class, () -> {vehicleService.addVehicle(vehicleDtoToAdd);}, "Le véhicule avec l'immatriculation numberplate existe déjà.");
+        // given
+        when(vehicleRepository.findById(1L)).thenReturn(Optional.empty());
+        when(vehicleRepository.findByNumberplate("numberplate")).thenReturn(Optional.of(vehicle));
+        
+        // when/then
+        assertThrows(AlreadyExistsException.class, () -> {vehicleService.addVehicle(vehicleDto);}, "Le véhicule avec l'immatriculation numberplate existe déjà.");
         }
-    }
+        }
+
 }
